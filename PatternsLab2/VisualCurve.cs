@@ -1,4 +1,6 @@
-﻿namespace PatternsLab2
+﻿using System;
+
+namespace PatternsLab2
 {
     class VisualCurve : ICurve, IDrawable
     {
@@ -18,11 +20,14 @@
 
         public void Draw(int n)
         {
+            StrategyContext StratCont = new StrategyContext(new ConcreteStrategicGetL(this.curve));
+
             GetPoint(0, out IPoint startPoint);
             GetPoint(1, out IPoint endPoint);
             context.DrawStartPoint(startPoint);
             context.DrawEndPoint(endPoint);
 
+            double L = 0;
             double bufT = 0;
             for (int i = 0; i < n; i++)
             {
@@ -30,13 +35,17 @@
 
                 GetPoint(bufT, out IPoint Point1);
                 GetPoint(t, out IPoint Point2);
-
                 context.DrawLine(Point1, Point2);
-
+                L += StratCont.ExecuteStrategic(t, L, n);
                 bufT = t;
             }
             GetPoint(bufT, out IPoint Point);
             context.DrawLine(Point, endPoint);
+
+            StratCont.SetStrategy(new ConcreteStrategicGetT(this.curve));
+            double CentralT = StratCont.ExecuteStrategic(0, L / 2, n);
+            GetPoint(CentralT, out IPoint CentralPoint);
+            context.DrawCentralPoint(CentralPoint);
         }
     }
 }

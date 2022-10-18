@@ -47,10 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ACurve.cs" />
+    <Compile Include="ConcreteStrategicGetL.cs" />
+    <Compile Include="ConcreteStrategicGetT.cs" />
     <Compile Include="DrawByGraphics.cs" />
     <Compile Include="DrawByGraphicsStyle1.cs" />
     <Compile Include="DrawByGraphicsStyle2.cs" />
+    <Compile Include="DrawBySVG.cs" />
     <Compile Include="IDrawByContext.cs" />
+    <Compile Include="IStrategy.cs" />
+    <Compile Include="StrategyContext.cs" />
     <Compile Include="VisualCurve.cs" />
     <Compile Include="Bezier.cs" />
     <Compile Include="Form1.cs">

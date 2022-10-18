@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PatternsLab2
@@ -7,6 +8,7 @@ namespace PatternsLab2
     public partial class Form1 : Form
     {
         Graphics g1, g2;
+        DrawBySVG SVG = new DrawBySVG();
 
         public Form1()
         {
@@ -39,6 +41,7 @@ namespace PatternsLab2
 
             new VisualCurve(curve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
             new VisualCurve(curve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            new VisualCurve(curve, SVG).Draw(50);
 
             button2.Enabled = true;
             button3.Enabled = true;
@@ -46,7 +49,14 @@ namespace PatternsLab2
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Random rnd = new Random();
+            string filename = "VisualCurve.svg";
+            string result = SVG.GetResult();
+            using (StreamWriter sw = new StreamWriter(filename))
+            {
+                sw.Write(result);
+            }
+            MessageBox.Show("Файл успешно сохранен!");
         }
     }
 }

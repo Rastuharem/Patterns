@@ -23,6 +23,10 @@ namespace PatternsLab2
         {
             this.DrawStartPoint(p);
         }
+        public virtual void DrawCentralPoint(IPoint p)
+        {
+            g.FillEllipse(Brushes.Red, new RectangleF((float)(p.GetCoordX() - thickness - 5), (float)(p.GetCoordY() - thickness - 5), (float)thickness + 10, (float)thickness + 10));
+        }
         public virtual void DrawLine(IPoint startPoint, IPoint endPoint)
         {
             Pen pen = new Pen(((SolidBrush)brush).Color, (float)thickness);
