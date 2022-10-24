@@ -6,7 +6,7 @@
 
         public override void GetPoint(double t, out IPoint p)
         {
-            p = new Point(LinearFunc(t, base.GetA().GetCoordX(), base.GetB().GetCoordX()), LinearFunc(t, base.GetA().GetCoordY(), base.GetB().GetCoordY()));
+            p = new Point(LinearFunc(t, base.GetStartPoint().GetCoordX(), base.GetEndPoint().GetCoordX()), LinearFunc(t, base.GetStartPoint().GetCoordY(), base.GetEndPoint().GetCoordY()));
         }
 
         private double LinearFunc (double t, double x1, double x2)

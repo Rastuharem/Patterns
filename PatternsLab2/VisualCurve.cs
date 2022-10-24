@@ -36,16 +36,22 @@ namespace PatternsLab2
                 GetPoint(bufT, out IPoint Point1);
                 GetPoint(t, out IPoint Point2);
                 context.DrawLine(Point1, Point2);
-                L += StratCont.ExecuteStrategic(t, L, n);
+
+                L += StratCont.ExecuteStrategy(t, L, n);
                 bufT = t;
             }
             GetPoint(bufT, out IPoint Point);
             context.DrawLine(Point, endPoint);
 
             StratCont.SetStrategy(new ConcreteStrategicGetT(this.curve));
-            double CentralT = StratCont.ExecuteStrategic(0, L / 2, n);
+            double CentralT = StratCont.ExecuteStrategy(0, L / 2, n);
             GetPoint(CentralT, out IPoint CentralPoint);
             context.DrawCentralPoint(CentralPoint);
+        }
+
+        public ICurve GetComponent()
+        {
+            return this;
         }
     }
 }

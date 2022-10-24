@@ -15,8 +15,8 @@ namespace PatternsLab2
 
         public override void GetPoint(double t, out IPoint p)
         {
-            p = new Point(BezierFunc(t, base.GetA().GetCoordX(), base.GetB().GetCoordX(), controlPoint1.GetCoordX(), controlPoint2.GetCoordX()),
-                          BezierFunc(t, base.GetA().GetCoordY(), base.GetB().GetCoordY(), controlPoint1.GetCoordY(), controlPoint2.GetCoordY()));
+            p = new Point(BezierFunc(t, base.GetStartPoint().GetCoordX(), base.GetEndPoint().GetCoordX(), controlPoint1.GetCoordX(), controlPoint2.GetCoordX()),
+                          BezierFunc(t, base.GetStartPoint().GetCoordY(), base.GetEndPoint().GetCoordY(), controlPoint1.GetCoordY(), controlPoint2.GetCoordY()));
         }
 
         private double BezierFunc(double t, double x1, double x2, double x3, double x4)

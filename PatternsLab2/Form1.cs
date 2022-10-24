@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 
@@ -9,6 +10,8 @@ namespace PatternsLab2
     {
         Graphics g1, g2;
         DrawBySVG SVG = new DrawBySVG();
+        GraphicsState grState1, grState2;
+        ICurve curCurve;
 
         public Form1()
         {
@@ -29,6 +32,9 @@ namespace PatternsLab2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            grState1 = g1.Save();
+            grState2 = g2.Save();
+
             Random rnd = new Random();
             Point startPoint, endPoint, controlPoint1, controlPoint2;
 
@@ -37,11 +43,14 @@ namespace PatternsLab2
             controlPoint1 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
             controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
 
-            Bezier curve = new Bezier(startPoint, endPoint, controlPoint1, controlPoint2);
+            curCurve = new Bezier(startPoint, endPoint, controlPoint1, controlPoint2);
 
-            new VisualCurve(curve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            new VisualCurve(curve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            new VisualCurve(curve, SVG).Draw(50);
+            new VisualCurve(curCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            new VisualCurve(curCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            new VisualCurve(curCurve, SVG).Draw(50);
+
+            //new VisualCurve(new FragmentDecorator(curCurve, 0.5, 0.7), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            //new VisualCurve(new MoveToDecorator(curCurve, new Point(0, 0)), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
 
             button2.Enabled = true;
             button3.Enabled = true;

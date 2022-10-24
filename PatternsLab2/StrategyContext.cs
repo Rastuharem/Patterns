@@ -9,7 +9,7 @@
             this.Strategy = Strategy;
         }
 
-        public double ExecuteStrategic(double t, double L, int step)
+        public double ExecuteStrategy(double t, double L, int step)
         {
             return Strategy.Execute(t, L, step);
         }

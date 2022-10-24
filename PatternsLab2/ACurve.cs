@@ -13,7 +13,12 @@
 
         abstract public void GetPoint(double t, out IPoint p);
 
-        public IPoint GetA() { return startPoint; }
-        public IPoint GetB() { return endPoint; }
+        public IPoint GetStartPoint() { return startPoint; }
+        public IPoint GetEndPoint() { return endPoint; }
+
+        public ICurve GetComponent()
+        {
+            return this;
+        }
     }
 }
