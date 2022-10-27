@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 
@@ -10,8 +10,9 @@ namespace PatternsLab2
     {
         Graphics g1, g2;
         DrawBySVG SVG = new DrawBySVG();
-        GraphicsState grState1, grState2;
         ICurve curCurve;
+        List<ICurve> AllCurves = new List<ICurve>();
+        int ButtonEnabler = 0;
 
         public Form1()
         {
@@ -32,8 +33,7 @@ namespace PatternsLab2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            grState1 = g1.Save();
-            grState2 = g2.Save();
+            ButtonEnabler++;
 
             Random rnd = new Random();
             Point startPoint, endPoint, controlPoint1, controlPoint2;
@@ -44,21 +44,23 @@ namespace PatternsLab2
             controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
 
             curCurve = new Bezier(startPoint, endPoint, controlPoint1, controlPoint2);
+            AllCurves.Add(curCurve);
 
             new VisualCurve(curCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
             new VisualCurve(curCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
             new VisualCurve(curCurve, SVG).Draw(50);
 
-            //new VisualCurve(new FragmentDecorator(curCurve, 0.5, 0.7), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            //new VisualCurve(new MoveToDecorator(curCurve, new Point(0, 0)), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-
             button2.Enabled = true;
             button3.Enabled = true;
+            button4.Enabled = true;
+            button5.Enabled = true;
+            if (ButtonEnabler >= 2)
+            {
+                button6.Enabled = true;
+            }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
             string filename = "VisualCurve.svg";
             string result = SVG.GetResult();
             using (StreamWriter sw = new StreamWriter(filename))
@@ -66,6 +68,58 @@ namespace PatternsLab2
                 sw.Write(result);
             }
             MessageBox.Show("Файл успешно сохранен!");
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            g1.Clear(Color.White);
+            g2.Clear(Color.White);
+
+            for (int i = 0; i < AllCurves.Count-1; i++)
+            {
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            }
+
+            ICurve reversedCurve = new FragmentDecorator(AllCurves[AllCurves.Count - 1], 1, 0);
+            new VisualCurve(reversedCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            new VisualCurve(reversedCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+
+            AllCurves[AllCurves.Count - 1] = reversedCurve;
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            g1.Clear(Color.White);
+            g2.Clear(Color.White);
+
+            for (int i = 0; i < AllCurves.Count - 1; i++)
+            {
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            }
+
+            ICurve movedCurve = new MoveToDecorator(AllCurves[AllCurves.Count - 1], new Point(0, 0));
+            new VisualCurve(movedCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            new VisualCurve(movedCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+
+            AllCurves[AllCurves.Count - 1] = movedCurve;
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            g1.Clear(Color.White);
+            g2.Clear(Color.White);
+
+            for (int i = 0; i < AllCurves.Count - 1; i++)
+            {
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            }
+
+            AllCurves[AllCurves.Count - 2].GetPoint(1, out IPoint whereToMoveDot);
+            ICurve movingCurve = new MoveToDecorator(AllCurves[AllCurves.Count - 1], whereToMoveDot);
+            new VisualCurve(movingCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            new VisualCurve(movingCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+
+            AllCurves[AllCurves.Count - 1] = movingCurve;
         }
     }
 }

@@ -14,17 +14,7 @@
 
         public void GetPoint(double t, out IPoint p)
         {
-            if (t <= tmin)
-            {
-                Curve.GetPoint(tmin, out p);
-                return;
-            }
-            if (t >= tmax)
-            {
-                Curve.GetPoint(tmax, out p);
-                return;
-            }
-            Curve.GetPoint(t, out p);
+            Curve.GetPoint((tmin + t*(tmax-tmin)), out p);
         }
 
         public ICurve GetComponent()
