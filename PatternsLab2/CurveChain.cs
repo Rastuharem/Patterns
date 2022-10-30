@@ -21,11 +21,17 @@ namespace PatternsLab2
         {
             List<FragmentDecorator> Fragments = new List<FragmentDecorator>();
             double chainDivider = 1 / (double)CurvesCount;
+            int chainedCurveNumber = 0;
 
             for (int i = 1; i < CurvesCount + 1; i++)
             {
                 Fragments.Add(new FragmentDecorator(ChainedCurves[i - 1], chainDivider * (i - 1), chainDivider * i));
+                if (t > chainDivider * (i - 1) && t <= chainDivider * i)
+                {
+                    chainedCurveNumber = i - 1;
+                }
             }
+
             for (int i = 1; i < CurvesCount; i++)
             {
                 Fragments[i - 1].GetPoint(1, out IPoint endPoint);
@@ -33,21 +39,7 @@ namespace PatternsLab2
                 Fragments[i] = buf;
             }
 
-            int chainedCurveNumber = 0;
-            for (int i = 1; i < CurvesCount + 1; i++)
-            {
-                if (t > chainDivider * (i - 1) && t <= chainDivider * i)
-                {
-                    chainedCurveNumber = i - 1;
-                }
-            }
-            if (t == 1)
-            {
-                chainedCurveNumber = Fragments.Count - 1;
-            }
-
             double curt = (t - Fragments[chainedCurveNumber].tmin) / (Fragments[chainedCurveNumber].tmax - Fragments[chainedCurveNumber].tmin);
-
             Fragments[chainedCurveNumber].GetPoint(curt, out p);
         }
     }
