@@ -34,6 +34,7 @@ namespace PatternsLab2
         private void button1_Click(object sender, EventArgs e)
         {
             ButtonEnabler++;
+            this.EnablingButtonsCheck(ButtonEnabler);
 
             Random rnd = new Random();
             Point startPoint, endPoint, controlPoint1, controlPoint2;
@@ -49,15 +50,6 @@ namespace PatternsLab2
             new VisualCurve(curCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
             new VisualCurve(curCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
             new VisualCurve(curCurve, SVG).Draw(50);
-
-            button2.Enabled = true;
-            button3.Enabled = true;
-            button4.Enabled = true;
-            button5.Enabled = true;
-            if (ButtonEnabler >= 2)
-            {
-                button6.Enabled = true;
-            }
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -123,6 +115,9 @@ namespace PatternsLab2
         }
         private void button7_Click(object sender, EventArgs e)
         {
+            ButtonEnabler++;
+            this.EnablingButtonsCheck(ButtonEnabler);
+
             Random rnd = new Random();
             List<ICurve> Curves = new List<ICurve>();
 
@@ -132,16 +127,30 @@ namespace PatternsLab2
                 IPoint endPoint = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
                 IPoint controlPoint1 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
                 IPoint controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
-
                 Curves.Add(new Bezier(startPoint, endPoint, controlPoint1, controlPoint2));
-                AllCurves.Add(new Bezier(startPoint, endPoint, controlPoint1, controlPoint2));
             }
+            AllCurves.Add(new CurveChain(Curves));
 
-            for (int i = 0;i<Curves.Count;i++)
+            for (int i = 0; i < Curves.Count; i++)
             {
                 new VisualCurve(Curves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
             }
             new VisualCurve(new CurveChain(Curves), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+        }
+
+        private void EnablingButtonsCheck(int counter)
+        {
+            if (counter >= 1)
+            {
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button5.Enabled = true;
+            }
+            if (counter >= 2)
+            {
+                button6.Enabled = true;
+            }
         }
     }
 }
