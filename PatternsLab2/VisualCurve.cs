@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PatternsLab2
+﻿namespace PatternsLab2
 {
     class VisualCurve : ICurve, IDrawable
     {
@@ -16,6 +14,10 @@ namespace PatternsLab2
         public void GetPoint(double t, out IPoint p)
         {
             curve.GetPoint(t, out p);
+        }
+        public ICurve GetComponent()
+        {
+            return this;
         }
 
         public void Draw(int n)
@@ -47,11 +49,6 @@ namespace PatternsLab2
             double CentralT = StratCont.ExecuteStrategy(0, L / 2, n);
             GetPoint(CentralT, out IPoint CentralPoint);
             context.DrawCentralPoint(CentralPoint);
-        }
-
-        public ICurve GetComponent()
-        {
-            return this;
         }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="ACurve.cs" />
     <Compile Include="ConcreteStrategicGetL.cs" />
     <Compile Include="ConcreteStrategicGetT.cs" />
+    <Compile Include="CurveChain.cs" />
     <Compile Include="DrawByGraphics.cs" />
     <Compile Include="DrawByGraphicsStyle1.cs" />
     <Compile Include="DrawByGraphicsStyle2.cs" />

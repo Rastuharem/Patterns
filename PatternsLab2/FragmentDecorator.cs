@@ -2,7 +2,8 @@
 {
     class FragmentDecorator : ICurve
     {
-        private double tmin, tmax;
+        public double tmin { get; set; }
+        public double tmax { get; set; }
         private ICurve Curve;
 
         public FragmentDecorator(ICurve Curve, double tmin, double tmax)
@@ -20,15 +21,6 @@
         public ICurve GetComponent()
         {
             return Curve.GetComponent();
-        }
-
-        public void SetTMin(double t)
-        {
-            this.tmin = t;
-        }
-        public void SetTMax(double t)
-        {
-            this.tmax = t;
         }
     }
 }

@@ -121,5 +121,27 @@ namespace PatternsLab2
 
             AllCurves[AllCurves.Count - 1] = movingCurve;
         }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            List<ICurve> Curves = new List<ICurve>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                IPoint startPoint = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
+                IPoint endPoint = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
+                IPoint controlPoint1 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
+                IPoint controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
+
+                Curves.Add(new Bezier(startPoint, endPoint, controlPoint1, controlPoint2));
+                AllCurves.Add(new Bezier(startPoint, endPoint, controlPoint1, controlPoint2));
+            }
+
+            for (int i = 0;i<Curves.Count;i++)
+            {
+                new VisualCurve(Curves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
+            }
+            new VisualCurve(new CurveChain(Curves), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+        }
     }
 }
