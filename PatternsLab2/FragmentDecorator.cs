@@ -22,5 +22,9 @@
         {
             return Curve.GetComponent();
         }
+        public void Iterate(Iterator i)
+        {
+            this.Curve.Iterate(i);
+        }
     }
 }

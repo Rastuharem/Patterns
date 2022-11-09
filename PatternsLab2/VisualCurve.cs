@@ -2,32 +2,28 @@
 {
     class VisualCurve : ICurve, IDrawable
     {
-        private ICurve curve;
-        private IDrawByContext context;
+        private ICurve Curve;
+        private IDrawByContext Context;
 
         public VisualCurve(ICurve curve, IDrawByContext context)
         {
-            this.curve = curve;
-            this.context = context;
+            this.Curve = curve;
+            this.Context = context;
         }
 
         public void GetPoint(double t, out IPoint p)
         {
-            curve.GetPoint(t, out p);
-        }
-        public ICurve GetComponent()
-        {
-            return this;
+            Curve.GetPoint(t, out p);
         }
 
         public void Draw(int n)
         {
-            StrategyContext StratCont = new StrategyContext(new ConcreteStrategicGetL(this.curve));
+            StrategyContext StratCont = new StrategyContext(new ConcreteStrategicGetL(this.Curve));
 
             GetPoint(0, out IPoint startPoint);
             GetPoint(1, out IPoint endPoint);
-            context.DrawStartPoint(startPoint);
-            context.DrawEndPoint(endPoint);
+            Context.DrawStartPoint(startPoint);
+            Context.DrawEndPoint(endPoint);
 
             double L = 0;
             double bufT = 0;
@@ -37,18 +33,27 @@
 
                 GetPoint(bufT, out IPoint Point1);
                 GetPoint(t, out IPoint Point2);
-                context.DrawLine(Point1, Point2);
+                Context.DrawLine(Point1, Point2);
 
                 L += StratCont.ExecuteStrategy(t, L, n);
                 bufT = t;
             }
             GetPoint(bufT, out IPoint Point);
-            context.DrawLine(Point, endPoint);
+            Context.DrawLine(Point, endPoint);
 
-            StratCont.SetStrategy(new ConcreteStrategicGetT(this.curve));
+            StratCont.SetStrategy(new ConcreteStrategicGetT(this.Curve));
             double CentralT = StratCont.ExecuteStrategy(0, L / 2, n);
             GetPoint(CentralT, out IPoint CentralPoint);
-            context.DrawCentralPoint(CentralPoint);
+            Context.DrawCentralPoint(CentralPoint);
+        }
+
+        public ICurve GetComponent()
+        {
+            return this;
+        }
+        public void Iterate(Iterator i)
+        {
+            this.Curve.Iterate(i);
         }
     }
 }

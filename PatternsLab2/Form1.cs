@@ -50,6 +50,8 @@ namespace PatternsLab2
             new VisualCurve(curCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
             new VisualCurve(curCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
             new VisualCurve(curCurve, SVG).Draw(50);
+
+            RefreshCount();
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -136,6 +138,8 @@ namespace PatternsLab2
                 new VisualCurve(Curves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
             }
             new VisualCurve(new CurveChain(Curves), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+
+            RefreshCount();
         }
 
         private void EnablingButtonsCheck(int counter)
@@ -151,6 +155,15 @@ namespace PatternsLab2
             {
                 button6.Enabled = true;
             }
+        }
+        private void RefreshCount()
+        {
+            int count = 0;
+            foreach (var curve in AllCurves)
+            {
+                curve.Iterate(i => count++);
+            }
+            textBox1.Text = "Текущее кол-во прямых = " + count.ToString();
         }
     }
 }

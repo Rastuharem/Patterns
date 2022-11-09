@@ -40,6 +40,7 @@ namespace PatternsLab2
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -169,18 +170,29 @@ namespace PatternsLab2
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Location = new System.Drawing.Point(24, 703);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(1214, 36);
+            this.button7.Size = new System.Drawing.Size(943, 36);
             this.button7.TabIndex = 7;
             this.button7.Text = "Сгенерировать цепь из 3 кривых";
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(973, 712);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(265, 20);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.Text = "Здесь будет выводиться кол-во прямых";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PatternsLab2.Properties.Resources.anevo_feel_something_kayla_diamond_music_cover_monstercat;
-            this.ClientSize = new System.Drawing.Size(1269, 767);
+            this.ClientSize = new System.Drawing.Size(1269, 769);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -196,6 +208,7 @@ namespace PatternsLab2
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -212,6 +225,7 @@ namespace PatternsLab2
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

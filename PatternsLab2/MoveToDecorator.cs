@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PatternsLab2
+﻿namespace PatternsLab2
 {
     class MoveToDecorator : ICurve
     {
@@ -31,6 +25,10 @@ namespace PatternsLab2
         public ICurve GetComponent()
         {
             return Curve.GetComponent();
+        }
+        public void Iterate(Iterator i)
+        {
+            this.Curve.Iterate(i);
         }
     }
 }

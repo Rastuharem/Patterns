@@ -49,5 +49,12 @@ namespace PatternsLab2
             double curt = (t - Fragments[chainedCurveNumber].tmin) / (Fragments[chainedCurveNumber].tmax - Fragments[chainedCurveNumber].tmin);
             Fragments[chainedCurveNumber].GetPoint(curt, out p);
         }
+        public void Iterate(Iterator i)
+        {
+            foreach (ICurve curve in ChainedCurves)
+            {
+                curve.Iterate(i);
+            }
+        }
     }
 }

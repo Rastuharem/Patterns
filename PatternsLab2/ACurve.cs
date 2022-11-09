@@ -20,5 +20,6 @@
         {
             return this;
         }
+        public void Iterate(Iterator i) => i(this);
     }
 }

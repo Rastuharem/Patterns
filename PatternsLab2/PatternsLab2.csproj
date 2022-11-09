@@ -56,6 +56,7 @@
     <Compile Include="DrawBySVG.cs" />
     <Compile Include="FragmentDecorator.cs" />
     <Compile Include="IDrawByContext.cs" />
+    <Compile Include="IIterable.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="MoveToDecorator.cs" />
     <Compile Include="StrategyContext.cs" />
