@@ -12,6 +12,7 @@ namespace PatternsLab2
         DrawBySVG SVG = new DrawBySVG();
         ICurve curCurve;
         List<ICurve> AllCurves = new List<ICurve>();
+        CommandManager CM = CommandManager.GetInstance();
         int ButtonEnabler = 0;
 
         public Form1()
@@ -29,12 +30,14 @@ namespace PatternsLab2
             g2 = pictureBox2.CreateGraphics();
             g2.TranslateTransform(pictureBox2.Width / 2, pictureBox2.Height / 2);
             g2.ScaleTransform(1, -1);
+
+            new InitCommand(AllCurves, g1, g2, SVG).Ecexute();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             ButtonEnabler++;
-            this.EnablingButtonsCheck(ButtonEnabler);
+            EnablingButtonsCheck();
 
             Random rnd = new Random();
             Point startPoint, endPoint, controlPoint1, controlPoint2;
@@ -45,11 +48,8 @@ namespace PatternsLab2
             controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
 
             curCurve = new Bezier(startPoint, endPoint, controlPoint1, controlPoint2);
-            AllCurves.Add(curCurve);
 
-            new VisualCurve(curCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            new VisualCurve(curCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            new VisualCurve(curCurve, SVG).Draw(50);
+            new AddCommand(curCurve, AllCurves, g1, g2, SVG).Ecexute();
 
             RefreshCount();
         }
@@ -65,60 +65,24 @@ namespace PatternsLab2
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            g1.Clear(Color.White);
-            g2.Clear(Color.White);
-
-            for (int i = 0; i < AllCurves.Count-1; i++)
-            {
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            }
-
             ICurve reversedCurve = new FragmentDecorator(AllCurves[AllCurves.Count - 1], 1, 0);
-            new VisualCurve(reversedCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            new VisualCurve(reversedCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-
-            AllCurves[AllCurves.Count - 1] = reversedCurve;
+            new ChangeCommand(reversedCurve, AllCurves, g1, g2, SVG).Ecexute();
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            g1.Clear(Color.White);
-            g2.Clear(Color.White);
-
-            for (int i = 0; i < AllCurves.Count - 1; i++)
-            {
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            }
-
             ICurve movedCurve = new MoveToDecorator(AllCurves[AllCurves.Count - 1], new Point(0, 0));
-            new VisualCurve(movedCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            new VisualCurve(movedCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-
-            AllCurves[AllCurves.Count - 1] = movedCurve;
+            new ChangeCommand(movedCurve, AllCurves, g1, g2, SVG).Ecexute();
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            g1.Clear(Color.White);
-            g2.Clear(Color.White);
-
-            for (int i = 0; i < AllCurves.Count - 1; i++)
-            {
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-                new VisualCurve(AllCurves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            }
-
             AllCurves[AllCurves.Count - 2].GetPoint(1, out IPoint whereToMoveDot);
             ICurve movingCurve = new MoveToDecorator(AllCurves[AllCurves.Count - 1], whereToMoveDot);
-            new VisualCurve(movingCurve, new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
-            new VisualCurve(movingCurve, new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-
-            AllCurves[AllCurves.Count - 1] = movingCurve;
+            new ChangeCommand(movingCurve, AllCurves, g1, g2, SVG).Ecexute();
         }
         private void button7_Click(object sender, EventArgs e)
         {
             ButtonEnabler++;
-            this.EnablingButtonsCheck(ButtonEnabler);
+            EnablingButtonsCheck();
 
             Random rnd = new Random();
             List<ICurve> Curves = new List<ICurve>();
@@ -131,29 +95,32 @@ namespace PatternsLab2
                 IPoint controlPoint2 = new Point(rnd.Next(-pictureBox1.Width / 2, pictureBox1.Width / 2), rnd.Next(-pictureBox1.Height / 2, pictureBox1.Height / 2));
                 Curves.Add(new Bezier(startPoint, endPoint, controlPoint1, controlPoint2));
             }
-            AllCurves.Add(new CurveChain(Curves));
-
-            for (int i = 0; i < Curves.Count; i++)
-            {
-                new VisualCurve(Curves[i], new DrawByGraphicsStyle2(g2, 3)).Draw(50);
-            }
-            new VisualCurve(new CurveChain(Curves), new DrawByGraphicsStyle1(g1, 3)).Draw(1000);
+            new AddCommand(new CurveChain(Curves), AllCurves, g1, g2, SVG).Ecexute();
 
             RefreshCount();
         }
-
-        private void EnablingButtonsCheck(int counter)
+        private void button8_Click(object sender, EventArgs e)
         {
-            if (counter >= 1)
+            UndoOperation();
+        }
+
+        private void EnablingButtonsCheck()
+        {
+            if (ButtonEnabler >= 1)
             {
                 button2.Enabled = true;
                 button3.Enabled = true;
                 button4.Enabled = true;
                 button5.Enabled = true;
+                button8.Enabled = true;
             }
-            if (counter >= 2)
+            if (ButtonEnabler >= 2)
             {
                 button6.Enabled = true;
+            }
+            if (ButtonEnabler == 0)
+            {
+                button8.Enabled = false;
             }
         }
         private void RefreshCount()
@@ -164,6 +131,15 @@ namespace PatternsLab2
                 curve.Iterate(i => count++);
             }
             textBox1.Text = "Текущее кол-во прямых = " + count.ToString();
+        }
+        private void UndoOperation()
+        {
+            if (CM.GetCommands()[CM.GetCommands().Count - 1] is AddCommand)
+            {
+                ButtonEnabler--;
+                EnablingButtonsCheck();
+            }
+            CM.Undo();
         }
     }
 }

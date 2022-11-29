@@ -1,9 +1,9 @@
 ﻿namespace PatternsLab2
 {
-    interface IIterable
+    public interface IIterable
     {
         void Iterate(Iterator i);
     }
 
-    delegate void Iterator(IIterable obj);
+    public delegate void Iterator(IIterable obj);
 }

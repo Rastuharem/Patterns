@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACommand.cs" />
     <Compile Include="ACurve.cs" />
+    <Compile Include="AddCommand.cs" />
+    <Compile Include="ChangeCommand.cs" />
+    <Compile Include="CommandManager.cs" />
     <Compile Include="ConcreteStrategicGetL.cs" />
     <Compile Include="ConcreteStrategicGetT.cs" />
     <Compile Include="CurveChain.cs" />
@@ -55,8 +59,10 @@
     <Compile Include="DrawByGraphicsStyle2.cs" />
     <Compile Include="DrawBySVG.cs" />
     <Compile Include="FragmentDecorator.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="IDrawByContext.cs" />
     <Compile Include="IIterable.cs" />
+    <Compile Include="InitCommand.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="MoveToDecorator.cs" />
     <Compile Include="StrategyContext.cs" />

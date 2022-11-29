@@ -41,6 +41,7 @@ namespace PatternsLab2
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -160,7 +161,7 @@ namespace PatternsLab2
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(390, 36);
             this.button6.TabIndex = 6;
-            this.button6.Text = "Совместить конец предпоследней кривой с началом последней кривой";
+            this.button6.Text = "Совместить начало последней кривой с концом предпоследней";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -186,12 +187,25 @@ namespace PatternsLab2
             this.textBox1.Text = "Здесь будет выводиться кол-во прямых";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.White;
+            this.button8.Enabled = false;
+            this.button8.Location = new System.Drawing.Point(1258, 16);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(45, 47);
+            this.button8.TabIndex = 9;
+            this.button8.Text = "Отменить";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PatternsLab2.Properties.Resources.anevo_feel_something_kayla_diamond_music_cover_monstercat;
-            this.ClientSize = new System.Drawing.Size(1269, 769);
+            this.ClientSize = new System.Drawing.Size(1367, 769);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -226,6 +240,7 @@ namespace PatternsLab2
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button8;
     }
 }
 

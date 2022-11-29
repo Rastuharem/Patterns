@@ -1,6 +1,6 @@
 ﻿namespace PatternsLab2
 {
-    interface IPoint
+    public interface IPoint
     {
         double GetCoordX();
         double GetCoordY();

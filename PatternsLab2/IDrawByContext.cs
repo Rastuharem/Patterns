@@ -1,6 +1,6 @@
 ﻿namespace PatternsLab2
 {
-    interface IDrawByContext
+    public interface IDrawByContext
     {
         void DrawLine(IPoint p1, IPoint p2);
         void DrawStartPoint(IPoint p);

@@ -1,6 +1,6 @@
 ﻿namespace PatternsLab2
 {
-    interface IDrawable
+    public interface IDrawable
     {
         void Draw(int n);
     }

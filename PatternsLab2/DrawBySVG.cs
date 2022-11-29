@@ -1,6 +1,6 @@
 ﻿namespace PatternsLab2
 {
-    class DrawBySVG : IDrawByContext
+    public class DrawBySVG : IDrawByContext
     {
         private string result;
 
